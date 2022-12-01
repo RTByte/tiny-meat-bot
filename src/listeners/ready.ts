@@ -26,15 +26,16 @@ export class UserEvent extends Listener {
 		const success = green('+');
 		// const failure = red('-');
 
-		const line01 = whiteBright(String.raw`       .▄##╗▄▄`);
-		const line02 = whiteBright(String.raw`     .S▓█████▓▓▒▄`);
-		const line03 = whiteBright(String.raw`   w┌╫▓╣██████▓▓▓▒     ▒▓▓▓▓▓▓▄, ▓▓▓▓▓▓▓▓  ▓▓▓▓▓▓▒   ▓▓,   ▓▓ ▒▓▓▓▓▓▓▓▌ ▓▓▓▓▓▓▓▌`);
-		const line04 = whiteBright(String.raw` ▄▄▄▓███${red('▀╫╠╠╠╫')}▓▓▓▓▌    ▓█    ╫██    ██▄    ██   └██  └██▄┌██╙    ╫█▌   .██`);
-		const line05 = whiteBright(String.raw`║█████${red('▀╠╠╠▒▒')}▓▓▓▓▓▓▓    ▓██▓▓▓█▀     ██     ██▓▓███▄    ▀██▀      ╫█▌   .███████═`);
-		const line06 = whiteBright(String.raw`║████${red('▌╠╠╠╠╫')}▓▓▓▓▓▓▓▌    ▓█  ╙██▄     ██     ██    ██     ██       ╫█▌   .██`);
-		const line07 = whiteBright(String.raw` ▀█▓▓▓${red('▒╠╠╢')}▓▓▓▓▓▓▓▓=    ▓█    ▀██    ██     ██▓▓▓██▀     ██       ╫█▌   .██▓▓▓▓▓▓`);
-		const line08 = whiteBright(String.raw`  ╜▓▓▓▓▓▓▓▓▓▓▓▓▓▀`);
-		const line09 = whiteBright(String.raw`    └╜▀▀▓▓▓▓▀▀╙`);
+
+		
+		const line01 = whiteBright(String.raw`        ${yellow(',,.,,,,.,.')}             ▄▄▄▄▄▄▄    ▄▄▄▄▄▄▄  ╔▄▄▄▄▄▄▄▄▄▄⌐    ╒▄▄▄▄▄▄   ╒▄▄▄▄▄▄▄▄▄▄▄▄`);
+		const line02 = whiteBright(String.raw`   ${yellow(',;╖▄')}${red('▓▓▓▓▓▓▓▓▄')}${yellow('░░░░░─.')}        ███████.  ╒███████  ▐██████████H    ███████▌  ▐████████████`);
+		const line03 = whiteBright(String.raw` ${yellow('░╓')}${red('▓▓▓▓▓▓▓▓▓▓')}░╥╗╖░${red('▓▓▓▓▄')}${yellow('░,')}      ████████  ████████  ▐████▀         ▐████████   ▀▀▀█████▀▀▀╙`);
+		const line04 = whiteBright(String.raw`${yellow(',░')}${red('▓▓▓▓▓▓▓▓▓▓▓')}▄▒▒▒▄${red('▓▓▓▓▓▓U')}${yellow('░ ')}    ████████▌▐████████  ▐█████▄▄▄▄▄    ████╛█████     █████`);
+		const line05 = whiteBright(String.raw`${yellow(']░')}${red('▀▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▌')}${yellow('░ ')}    ████████████▌█████  ▐██████████   █████  ████▌    █████`);
+		const line06 = whiteBright(String.raw`${yellow('└░░░')}${red('╙▀▀▓▓▀▀╙')}${yellow('░░░░░░')}${red('▀▓▓▓▓▓')}${yellow('░░ ')}    █████ ██████ █████  ▐████▌       ▐█████▄▄█████    █████`);
+		const line07 = whiteBright(String.raw` ${yellow('`▒░░░░░░░░░░░░░░░░░░░░░░▒ ')}    █████ ▐████M █████  ▐█████▄▄▄▄▄⌐ █████████████▌   █████`);
+		const line08 = whiteBright(String.raw`    ${yellow('``*╜╜"``      `▒░░░░╜ ')}     █████  ▀██▌  █████  ▐██████████H█████▀    ▀████▄  █████`);
 
 		// Offset Pad
 		const pad = ' '.repeat(7);
@@ -50,8 +51,7 @@ ${line04}
 ${line05}
 ${line06}
 ${line07}
-${line08}
-${line09} ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma
+${line08}      ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma
 		`.trim()
 		);
 	}
