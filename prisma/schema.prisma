@@ -1,0 +1,50 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Client {
+	@@map("client")
+	id String @id
+	restarts Int @default(0)
+}
+
+model Guild {
+	@@map("guild")
+
+	id String @id
+	bans Int @default(0)
+	channelsCreated Int @default(0)
+	channelsDeleted Int @default(0)
+	emojisCreated Int @default(0)
+	emojisDeleted Int @default(0)
+	invitesCreated Int @default(0)
+	invitesDeleted Int @default(0)
+	membersJoined Int @default(0)
+	membersLeft Int @default(0)
+	messages Int @default(0)
+	messagesDeleted Int @default(0)
+	messagesUpdated Int @default(0)
+	reactionsAdded Int @default(0)
+	reactionsRemoved Int @default(0)
+	rolesCreated Int @default(0)
+	rolesDeleted Int @default(0)
+	scheduledEventsCreated Int @default(0)
+	scheduledEventsDeleted Int @default(0)
+	scheduledEventsUsersAdded Int @default(0)
+	scheduledEventsUsersRemoved Int @default(0)
+	stageInstancesCreated Int @default(0)
+	stageInstancesDeleted Int @default(0)
+	stickersCreated Int @default(0)
+	stickersDeleted Int @default(0)
+	threadsCreated Int @default(0)
+	threadsDeleted Int @default(0)
+	unbans Int @default(0)
+}
