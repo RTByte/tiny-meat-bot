@@ -14,6 +14,6 @@ export class UserListener extends Listener {
 					increment: 1
 				}
 			}
-		})
+		});
 	}
 }
