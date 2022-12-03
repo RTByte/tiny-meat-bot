@@ -8,6 +8,8 @@ import { parse as parseEmoji } from 'twemoji-parser';
 @ApplyOptions<ListenerOptions>({ event: Events.MessageCreate })
 export class UserListener extends Listener {
 	public async run(message: Message) {
+		if (message.author.bot) return;
+		
 		await this.totalMessages(message);
 		await this.channelMessages(message);
 		await this.memberMessages(message);

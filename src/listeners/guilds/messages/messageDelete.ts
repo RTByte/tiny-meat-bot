@@ -6,6 +6,8 @@ import { Message } from "discord.js";
 @ApplyOptions<ListenerOptions>({ event: Events.MessageDelete })
 export class UserListener extends Listener {
 	public async run(message: Message) {
+		if (message.author.bot) return;
+
 		await this.totalMessagesDeleted(message);
 		await this.channelMessagesDeleted(message);
 		await this.memberMessagesDeleted(message);

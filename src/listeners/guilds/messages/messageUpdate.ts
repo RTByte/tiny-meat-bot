@@ -6,6 +6,8 @@ import { Message } from "discord.js";
 @ApplyOptions<ListenerOptions>({ event: Events.MessageUpdate })
 export class UserListener extends Listener {
 	public async run(message: Message) {
+		if (message.author.bot) return;
+
 		await this.totalMessagesUpdated(message);
 		await this.channelMessagesUpdated(message);
 		await this.memberMessagesUpdated(message);

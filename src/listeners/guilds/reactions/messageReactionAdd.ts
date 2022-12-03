@@ -7,6 +7,8 @@ import { parse as parseEmoji } from 'twemoji-parser';
 @ApplyOptions<ListenerOptions>({ event: Events.MessageReactionAdd })
 export class UserListener extends Listener {
 	public async run(reaction: MessageReaction) {
+		if (reaction.users.cache.last()?.bot) return;
+
 		await this.totalReactionsAdded(reaction);
 		await this.channelReactionsAdded(reaction);
 		await this.memberReactionsAdded(reaction);
