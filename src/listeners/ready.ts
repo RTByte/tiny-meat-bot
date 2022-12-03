@@ -72,10 +72,10 @@ ${line08}      ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma
 	private async clientValidation() {
 		const { client } = this.container;
 
-		// Fetch client settings
+		// Fetch client
 		const dbClient = await client.prisma.client.findFirst()
 
-		// Validate client settings and ensure configuration exists
+		// Validate client entry and ensure it exists
 		if (dbClient?.id !== client.id) {
 			await client.prisma.client.create({
 				data: {
@@ -103,7 +103,7 @@ ${line08}      ${pad}[${success}] Gateway ${connectionPad}[${success}] Prisma
 		for (const guildCollection of client.guilds.cache) {
 			const guild = guildCollection[1];
 
-			// Check if configuration exists for guild. If not, create it
+			// Check if entry exists for guild. If not, create it
 			const dbGuild = await client.prisma.guild.findFirst({ where: { id: guild.id } });
 			if (!dbGuild) {
 				logger.info(`Initializing guild ${bold(guild.name)} (${guild.id})...`)
