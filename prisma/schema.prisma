@@ -51,3 +51,43 @@ model Guild {
 	threadsReopened Int @default(0)
 	unbans Int @default(0)
 }
+
+model Channel {
+	@@map("channel")
+
+	id String @id
+	messages Int @default(0)
+	messagesDeleted Int @default(0)
+	messagesUpdated Int @default(0)
+	reactionsAdded Int @default(0)
+}
+
+model Member {
+	@@map("member")
+
+	id String @id
+	messages Int @default(0)
+	messagesDeleted Int @default(0)
+	messagesUpdated Int @default(0)
+	emojisInMessages Int @default(0)
+	reactionsAdded Int @default(0)
+	scheduledEventsSubscribed Int @default(0)
+	scheduledEventsUnsubscribed Int @default(0)
+}
+
+model Emoji {
+	@@map("emoji")
+
+	id String @id
+	inMessages Int @default(0)
+	inReactions Int @default(0)
+	url String
+}
+
+model Sticker {
+	@@map("sticker")
+
+	id String @id
+	uses Int @default(0)
+	url String
+}
