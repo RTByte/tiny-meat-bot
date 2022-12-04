@@ -71,6 +71,7 @@ model Member {
 	messagesUpdated Int @default(0)
 	emojisInMessages Int @default(0)
 	reactionsAdded Int @default(0)
+	stickersInMessages Int @default(0)
 	scheduledEventsSubscribed Int @default(0)
 	scheduledEventsUnsubscribed Int @default(0)
 }

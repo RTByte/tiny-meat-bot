@@ -16,6 +16,7 @@ export class UserListener extends Listener {
 		await this.emojisInMessages(message);
 		await this.memberEmojisInMessages(message);
 		await this.stickersInMessages(message);
+		await this.memberStickersInMessages(message);
 	}
 
 	private async totalMessages(message: Message) {
@@ -196,6 +197,19 @@ export class UserListener extends Listener {
 						}
 					}
 				});
+		}
+	}
+
+	private async memberStickersInMessages(message: Message) {
+		if (message.stickers.size >= 1) {
+			await this.container.client.prisma.member.update({
+				where: { id: message.author.id },
+				data: {
+					stickersInMessages: {
+						increment: message.stickers.size
+					}
+				}
+			})
 		}
 	}
 }
