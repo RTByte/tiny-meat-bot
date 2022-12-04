@@ -10,7 +10,7 @@ export class UserCommand extends Subcommand {
 		super(context, {
 			...options,
 			name: 'stats',
-			description: 'Fetch stats from the Tiny Meat Bot database',
+			description: 'Fetch data from the Tiny Meat Bot database',
 			subcommands: [
 				{ name: 'channel', chatInputRun: 'chatInputChannel' },
 				{ name: 'member', chatInputRun: 'chatInputMember' },
@@ -20,8 +20,9 @@ export class UserCommand extends Subcommand {
 					type: 'group',
 					entries: [
 						{ name: 'channels', chatInputRun: 'chatInputTopChannels' },
-						{ name: 'members', chatInputRun: 'chatInputTopMembers' }
-						// TODO: Add emoji and sticker top subcommands
+						{ name: 'members', chatInputRun: 'chatInputTopMembers' },
+						{ name: 'emojis', chatInputRun: 'chatInputTopEmojis' }
+						// TODO: Add sticker top subcommand
 					]
 				}
 			]
@@ -37,45 +38,45 @@ export class UserCommand extends Subcommand {
 				.addSubcommand((command) =>
 					command
 						.setName('channel')
-						.setDescription('Fetch data about a specified channel from the Tiny Meat Bot database')
+						.setDescription('Fetch data for a specified channel from the Tiny Meat Bot database')
 						.addChannelOption(option =>
 							option
 								.setName('channel')
 								.addChannelTypes(ChannelType.GuildNews, ChannelType.GuildNewsThread, ChannelType.GuildPrivateThread, ChannelType.GuildPublicThread, ChannelType.GuildText)
-								.setDescription('channel to fetch data about')
+								.setDescription('channel to fetch data for')
 								.setRequired(true)
 						)
 				)
 				.addSubcommand((command) =>
 					command
 						.setName('member')
-						.setDescription('Fetch data about a specified member from the Tiny Meat Bot database')
+						.setDescription('Fetch data for a specified member from the Tiny Meat Bot database')
 						.addUserOption(option =>
 							option
 								.setName('member')
-								.setDescription('member to fetch data about')
+								.setDescription('member to fetch data for')
 								.setRequired(true)
 						)
 				)
 				.addSubcommand((command) =>
 					command
 						.setName('emoji')
-						.setDescription('Fetch data about a specified emoji from the Tiny Meat Bot database')
+						.setDescription('Fetch data for a specified emoji from the Tiny Meat Bot database')
 						.addStringOption(option =>
 							option
 								.setName('emoji')
-								.setDescription('emoji to fetch data about')
+								.setDescription('emoji to fetch data for')
 								.setRequired(true)
 						)
 				)
 				.addSubcommandGroup((group) =>
 					group
 						.setName('top')
-						.setDescription('Fetch channel data in descending order from the Tiny Meat Bot database')
+						.setDescription('Fetch data in descending order from the Tiny Meat Bot database')
 						.addSubcommand((command) =>
 							command
 								.setName('channels')
-								.setDescription('Fetch data in descending order from the Tiny Meat Bot database')
+								.setDescription('Fetch channel data in descending order from the Tiny Meat Bot database')
 								.addNumberOption( option => 
 									option
 										.setName('amount')
@@ -96,7 +97,19 @@ export class UserCommand extends Subcommand {
 										.setRequired(true)
 								)
 						)
-						// TODO: Add emoji and sticker top subcommands
+						.addSubcommand((command) =>
+							command
+								.setName('emojis')
+								.setDescription('Fetch emoji data in descending order from the Tiny Meat Bot database. Prints emoji ID if unavailable')
+								.addNumberOption( option => 
+									option
+										.setName('amount')
+										.setDescription('amount of entries to fetch')
+										.setMinValue(2)
+										.setRequired(true)
+								)
+						)
+						// TODO: Add sticker top subcommand
 				)
 		);
 	}
@@ -195,7 +208,32 @@ export class UserCommand extends Subcommand {
 		return interaction.editReply(msg);
 	}
 
-	// TODO: Add emoji and sticker top subcommands
+	public async chatInputTopEmojis(interaction: Subcommand.ChatInputInteraction) {
+    	await interaction.reply({ content: `Fetching emoji data...`, ephemeral: false, fetchReply: true });
+
+		const amount = interaction.options.getNumber('amount');
+		const emojiDb = await this.container.client.prisma.emoji.findMany({ take: amount as number, orderBy: { inReactions: 'desc' } });
+
+		if (!emojiDb) return interaction.editReply(`❌ The emoji database has not been populated yet.`)
+
+		const data = [];
+		for (const emoji of emojiDb) {
+			const checkIfCustom = emoji.id.match(SnowflakeRegex);
+			const customEmoji = this.container.client.emojis.resolve(emoji.id);
+			// if (checkIfCustom && !customEmoji) continue;
+
+			// Check if the emoji is a custom emoji, then checks if the custom emoji is available to the bot. Animated/image emoji check and formatting. Prints bold ID if unavailable to bot. Prints native emoji if not custom.
+			const parsedEmoji = checkIfCustom ? customEmoji ? customEmoji?.animated ? `<a:${customEmoji?.name}:${emoji.id}>` : `<:${customEmoji?.name}:${emoji.id}>` : `**${emoji.id}**` : emoji.id;
+			data.push(` • ${parsedEmoji}: Used ${inlineCodeBlock(String(emoji.inMessages))} times in messages | Used ${inlineCodeBlock(String(emoji.inReactions))} times in reactions`)
+		}
+
+		const msg = `✅ Emoji data fetched!\n\n**Top ${amount === emojiDb.length ? amount : emojiDb.length} emojis:**\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`
+		if (msg.length > 1950) return interaction.editReply('❌ Response is longer than the max message length, try a lower amount.');
+
+		return interaction.editReply(msg);
+	}
+
+	// TODO: Add sticker top subcommand
 
 	private async getLastResetDate() {
 		const clientDb = await this.container.client.prisma.client.findFirst();
