@@ -18,6 +18,9 @@ export class UserListener extends Listener {
 		await this.memberEmojisInMessages(message);
 		await this.stickersInMessages(message);
 		await this.memberStickersInMessages(message);
+		await this.totalMentions(message);
+		await this.channelMentions(message);
+		await this.memberMentions(message);
 	}
 
 	private async totalMessages(message: Message) {
@@ -211,6 +214,174 @@ export class UserListener extends Listener {
 					}
 				}
 			})
+		}
+	}
+
+	private async totalMentions(message: Message) {
+		if (message.mentions.channels.size >= 1) {
+			await this.container.client.prisma.guild.update({
+				where: { id: message.guild?.id },
+				data: {
+					channelMentions: {
+						increment: message.mentions.channels.size
+					}
+				}
+			});
+		}
+
+		if (message.mentions.everyone) {
+			await this.container.client.prisma.guild.update({
+				where: { id: message.guild?.id },
+				data: {
+					everyoneMentions: {
+						increment: 1
+					}
+				}
+			});
+		}
+
+		if (message.mentions.parsedUsers.size >= 1) {
+			await this.container.client.prisma.guild.update({
+				where: { id: message.guild?.id },
+				data: {
+					userMentions: {
+						increment: message.mentions.parsedUsers.size
+					}
+				}
+			});
+		}
+
+		if (message.mentions.roles.size >= 1) {
+			await this.container.client.prisma.guild.update({
+				where: { id: message.guild?.id },
+				data: {
+					roleMentions: {
+						increment: message.mentions.roles.size
+					}
+				}
+			});
+		}
+	}
+
+	private async channelMentions(message: Message) {
+		if (message.mentions.channels.size >= 1) {
+			await this.container.client.prisma.channel.update({
+				where: { id: message.channel?.id },
+				data: {
+					channelMentions: {
+						increment: message.mentions.channels.size
+					}
+				}
+			});
+		}
+
+		if (message.mentions.everyone) {
+			await this.container.client.prisma.channel.update({
+				where: { id: message.channel?.id },
+				data: {
+					everyoneMentions: {
+						increment: 1
+					}
+				}
+			});
+		}
+
+		if (message.mentions.parsedUsers.size >= 1) {
+			await this.container.client.prisma.channel.update({
+				where: { id: message.channel?.id },
+				data: {
+					userMentions: {
+						increment: message.mentions.parsedUsers.size
+					}
+				}
+			});
+		}
+
+		if (message.mentions.roles.size >= 1) {
+			await this.container.client.prisma.channel.update({
+				where: { id: message.channel?.id },
+				data: {
+					roleMentions: {
+						increment: message.mentions.roles.size
+					}
+				}
+			});
+		}
+	}
+
+	private async memberMentions(message: Message) {
+		if (message.mentions.channels.size >= 1) {
+			await this.container.client.prisma.member.update({
+				where: { id: message.author?.id },
+				data: {
+					channelMentions: {
+						increment: message.mentions.channels.size
+					}
+				}
+			});
+		}
+
+		if (message.mentions.everyone) {
+			await this.container.client.prisma.member.update({
+				where: { id: message.author?.id },
+				data: {
+					everyoneMentions: {
+						increment: 1
+					}
+				}
+			});
+		}
+
+		if (message.mentions.parsedUsers.size >= 1) {
+			const otherUsers = message.mentions.parsedUsers.filter(user => user.id !== message.author.id);
+			await this.container.client.prisma.member.update({
+				where: { id: message.author?.id },
+				data: {
+					userMentions: {
+						increment: otherUsers.size
+					}
+				}
+			});
+
+			for (const user of message.mentions.parsedUsers) {
+				if (user[1].bot) continue;
+				
+				if (user[1].id !== message.author.id) {
+					const memberDb = await this.container.client.prisma.member.findFirst({ where: { id: user[1].id } });
+					if (!memberDb) {
+						this.container.logger.info(`Initializing entry for member ${bold(user[1].id)}...`);
+
+						await this.container.client.prisma.member.create({
+							data: {
+								id: user[1].id
+							}
+						}).catch(e => {
+							this.container.logger.error(`Failed to initialize member ${bold(user[1].id)}, error below.`);
+							this.container.logger.error(e);
+						});
+					}
+
+					await this.container.client.prisma.member.update({
+						where: { id: user[1].id },
+						data: {
+							mentionedByOthers: {
+								increment: 1
+							}
+						}
+					});
+				}
+			}
+		}
+
+		if (message.mentions.roles.size >= 1) {
+			await this.container.client.prisma.member.update({
+				where: { id: message.author?.id },
+				data: {
+					roleMentions: {
+						increment: message.mentions.roles.size
+					}
+				}
+			});
 		}
 	}
 }
