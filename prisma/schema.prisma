@@ -30,6 +30,7 @@ model Guild {
 	everyoneMentions Int @default(0)
 	invitesCreated Int @default(0)
 	invitesDeleted Int @default(0)
+	linksSent Int @default(0)
 	membersJoined Int @default(0)
 	membersLeft Int @default(0)
 	membersTimedOut Int @default(0)
@@ -69,6 +70,7 @@ model Channel {
 	everyoneMentions Int @default(0)
 	roleMentions Int @default(0)
 	userMentions Int @default(0)
+	linksSent Int @default(0)
 }
 
 model Member {
@@ -86,6 +88,7 @@ model Member {
 	mentionedByOthers Int @default(0)
 	roleMentions Int @default(0)
 	userMentions Int @default(0)
+	linksSent Int @default(0)
 	scheduledEventsSubscribed Int @default(0)
 	scheduledEventsUnsubscribed Int @default(0)
 }
