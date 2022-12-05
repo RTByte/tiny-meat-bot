@@ -1,4 +1,5 @@
-import { EmojiRegex, SnowflakeRegex } from '#utils/constants';
+import { SnowflakeRegex } from '#utils/constants';
+import { FormattedCustomEmoji } from '@sapphire/discord-utilities';
 import { ChatInputCommand } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { inlineCodeBlock } from '@sapphire/utilities';
@@ -140,10 +141,11 @@ export class UserCommand extends Subcommand {
 
 		const data = [
 			` • ${inlineCodeBlock(String(memberDb?.messages))} messages`, ` • ${inlineCodeBlock(String(memberDb.messagesDeleted))} messages deleted`,
-			` • ${inlineCodeBlock(String(memberDb.messagesUpdated))} messages updated`, ` • ${inlineCodeBlock(String(memberDb.emojisInMessages))} emojis used in messages`,
-			` • ${inlineCodeBlock(String(memberDb?.reactionsAdded))} reactions added`, ` • ${inlineCodeBlock(String(memberDb?.stickersInMessages))} stickers used in messages`,
+			` • ${inlineCodeBlock(String(memberDb.messagesUpdated))} messages updated`, ` • ${inlineCodeBlock(String(memberDb.emojisInMessages))} emojis sent`,
+			` • ${inlineCodeBlock(String(memberDb?.reactionsAdded))} reactions added`, ` • ${inlineCodeBlock(String(memberDb?.stickersInMessages))} stickers sent`,
 			` • Subscribed to ${inlineCodeBlock(String(memberDb?.scheduledEventsSubscribed))} events`, ` • Unsubscribed from ${inlineCodeBlock(String(memberDb?.scheduledEventsUnsubscribed))} events`,
-			` • ${inlineCodeBlock(String(memberDb?.timeSpentInVoiceChat))} seconds spent in voice chat`,
+      ` • ${inlineCodeBlock(String(memberDb?.timeSpentInVoiceChat))} seconds spent in voice chat`,
+
 		];
 
 		return interaction.editReply(`✅ Member data fetched!\n\n${member}:\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`);
@@ -154,7 +156,7 @@ export class UserCommand extends Subcommand {
 
 		const emojiInput = interaction.options.getString('emoji');
 		
-		const parsedCustomEmoji = emojiInput?.match(EmojiRegex);
+		const parsedCustomEmoji = emojiInput?.match(FormattedCustomEmoji);
 		const parsedNativeEmoji = parseEmoji(emojiInput as string, { assetType: 'png' })[0];
 		const customEmoji = parsedCustomEmoji ? parsedCustomEmoji[0].match(SnowflakeRegex)![0] : null;
 
@@ -200,7 +202,7 @@ export class UserCommand extends Subcommand {
 
 		const data = [];
 		for (const member of memberDb) {
-			data.push(` • <@${member.id}>: ${inlineCodeBlock(String(member.messages))} messages | ${inlineCodeBlock(String(member.messagesDeleted))} messages deleted | ${inlineCodeBlock(String(member.messagesUpdated))} messages updated | ${inlineCodeBlock(String(member.emojisInMessages))} emojis used in messages | ${inlineCodeBlock(String(member.reactionsAdded))} reactions added | ${inlineCodeBlock(String(member.stickersInMessages))} stickers used in messages`)
+			data.push(` • <@${member.id}>: ${inlineCodeBlock(String(member.messages))} messages | ${inlineCodeBlock(String(member.messagesDeleted))} messages deleted | ${inlineCodeBlock(String(member.messagesUpdated))} messages updated | ${inlineCodeBlock(String(member.emojisInMessages))} emojis sent | ${inlineCodeBlock(String(member.reactionsAdded))} reactions added | ${inlineCodeBlock(String(member.stickersInMessages))} stickers sent`)
 		}
 
 		const msg = `✅ Member data fetched!\n\n**Top ${amount === memberDb.length ? amount : memberDb.length} members:**\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`

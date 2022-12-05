@@ -1,0 +1,18 @@
+-- AlterTable
+ALTER TABLE "channel" ADD COLUMN     "channelMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "everyoneMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "roleMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "userMentions" INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "guild" ADD COLUMN     "channelMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "everyoneMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "roleMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "userMentions" INTEGER NOT NULL DEFAULT 0;
+
+-- AlterTable
+ALTER TABLE "member" ADD COLUMN     "channelMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "everyoneMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "mentionedByOthers" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "roleMentions" INTEGER NOT NULL DEFAULT 0,
+ADD COLUMN     "userMentions" INTEGER NOT NULL DEFAULT 0;

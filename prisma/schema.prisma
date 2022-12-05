@@ -22,12 +22,15 @@ model Guild {
 
 	id String @id
 	bans Int @default(0)
+	channelMentions Int @default(0)
 	channelsCreated Int @default(0)
 	channelsDeleted Int @default(0)
 	emojisCreated Int @default(0)
 	emojisDeleted Int @default(0)
+	everyoneMentions Int @default(0)
 	invitesCreated Int @default(0)
 	invitesDeleted Int @default(0)
+	linksSent Int @default(0)
 	membersJoined Int @default(0)
 	membersLeft Int @default(0)
 	membersTimedOut Int @default(0)
@@ -36,6 +39,7 @@ model Guild {
 	messagesUpdated Int @default(0)
 	reactionsAdded Int @default(0)
 	reactionsRemoved Int @default(0)
+	roleMentions Int @default(0)
 	rolesCreated Int @default(0)
 	rolesDeleted Int @default(0)
 	scheduledEventsCreated Int @default(0)
@@ -51,6 +55,7 @@ model Guild {
 	threadsDeleted Int @default(0)
 	threadsReopened Int @default(0)
 	unbans Int @default(0)
+	userMentions Int @default(0)
 }
 
 model Channel {
@@ -61,6 +66,11 @@ model Channel {
 	messagesDeleted Int @default(0)
 	messagesUpdated Int @default(0)
 	reactionsAdded Int @default(0)
+	channelMentions Int @default(0)
+	everyoneMentions Int @default(0)
+	roleMentions Int @default(0)
+	userMentions Int @default(0)
+	linksSent Int @default(0)
 }
 
 model Member {
@@ -73,6 +83,12 @@ model Member {
 	emojisInMessages Int @default(0)
 	reactionsAdded Int @default(0)
 	stickersInMessages Int @default(0)
+	channelMentions Int @default(0)
+	everyoneMentions Int @default(0)
+	mentionedByOthers Int @default(0)
+	roleMentions Int @default(0)
+	userMentions Int @default(0)
+	linksSent Int @default(0)
 	scheduledEventsSubscribed Int @default(0)
 	scheduledEventsUnsubscribed Int @default(0)
 	timeSpentInVoiceChat Int @default(0)
