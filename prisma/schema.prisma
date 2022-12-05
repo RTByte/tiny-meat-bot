@@ -91,6 +91,7 @@ model Member {
 	linksSent Int @default(0)
 	scheduledEventsSubscribed Int @default(0)
 	scheduledEventsUnsubscribed Int @default(0)
+	timeSpentInVoiceChat Int @default(0)
 }
 
 model Emoji {
