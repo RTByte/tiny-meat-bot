@@ -1,5 +1,6 @@
-import { EmojiRegex, SnowflakeRegex } from "#utils/constants";
+import { SnowflakeRegex } from "#utils/constants";
 import { ApplyOptions } from "@sapphire/decorators";
+import { FormattedCustomEmoji } from "@sapphire/discord-utilities";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
 import { Message } from "discord.js";
@@ -81,7 +82,7 @@ export class UserListener extends Listener {
 	}
 
 	private async emojisInMessages(message: Message) {
-		const parsedCustomEmoji = message.content.match(EmojiRegex);
+		const parsedCustomEmoji = message.content.match(FormattedCustomEmoji);
 		const parsedNativeEmoji = parseEmoji(message.content, { assetType: 'png' });
 
 		if (parsedCustomEmoji?.length) {
@@ -144,7 +145,7 @@ export class UserListener extends Listener {
 	}
 
 	private async memberEmojisInMessages(message: Message) {
-		const parsedCustomEmoji = message.content.match(EmojiRegex);
+		const parsedCustomEmoji = message.content.match(FormattedCustomEmoji);
 		const parsedNativeEmoji = parseEmoji(message.content, { assetType: 'png' });
 
 		if (parsedCustomEmoji?.length) {
