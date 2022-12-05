@@ -142,7 +142,8 @@ export class UserCommand extends Subcommand {
 			` • ${inlineCodeBlock(String(memberDb?.messages))} messages`, ` • ${inlineCodeBlock(String(memberDb.messagesDeleted))} messages deleted`,
 			` • ${inlineCodeBlock(String(memberDb.messagesUpdated))} messages updated`, ` • ${inlineCodeBlock(String(memberDb.emojisInMessages))} emojis used in messages`,
 			` • ${inlineCodeBlock(String(memberDb?.reactionsAdded))} reactions added`, ` • ${inlineCodeBlock(String(memberDb?.stickersInMessages))} stickers used in messages`,
-			` • Subscribed to ${inlineCodeBlock(String(memberDb?.scheduledEventsSubscribed))} events`, ` • Unsubscribed from ${inlineCodeBlock(String(memberDb?.scheduledEventsUnsubscribed))} events`
+			` • Subscribed to ${inlineCodeBlock(String(memberDb?.scheduledEventsSubscribed))} events`, ` • Unsubscribed from ${inlineCodeBlock(String(memberDb?.scheduledEventsUnsubscribed))} events`,
+			` • ${inlineCodeBlock(String(memberDb?.timeSpentInVoiceChat))} seconds spent in voice chat`,
 		];
 
 		return interaction.editReply(`✅ Member data fetched!\n\n${member}:\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`);
