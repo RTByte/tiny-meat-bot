@@ -1,4 +1,4 @@
-import { SnowflakeRegex } from "#utils/constants";
+import { LinkRegex, SnowflakeRegex } from "#utils/constants";
 import { ApplyOptions } from "@sapphire/decorators";
 import { FormattedCustomEmoji } from "@sapphire/discord-utilities";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
@@ -21,6 +21,9 @@ export class UserListener extends Listener {
 		await this.totalMentions(message);
 		await this.channelMentions(message);
 		await this.memberMentions(message);
+		await this.totalLinks(message);
+		await this.channelLinks(message);
+		await this.memberLinks(message);
 	}
 
 	private async totalMessages(message: Message) {
@@ -379,6 +382,51 @@ export class UserListener extends Listener {
 				data: {
 					roleMentions: {
 						increment: message.mentions.roles.size
+					}
+				}
+			});
+		}
+	}
+
+	private async totalLinks(message: Message) {
+		const parsedLinks = message.content.match(LinkRegex);
+		
+		if (parsedLinks?.length) {
+			await this.container.client.prisma.guild.update({
+				where: { id: message.guild?.id },
+				data: {
+					linksSent: {
+						increment: parsedLinks.length
+					}
+				}
+			});
+		}
+	}
+
+	private async channelLinks(message: Message) {
+		const parsedLinks = message.content.match(LinkRegex);
+		
+		if (parsedLinks?.length) {
+			await this.container.client.prisma.channel.update({
+				where: { id: message.channel?.id },
+				data: {
+					linksSent: {
+						increment: parsedLinks.length
+					}
+				}
+			});
+		}
+	}
+
+	private async memberLinks(message: Message) {
+		const parsedLinks = message.content.match(LinkRegex);
+		
+		if (parsedLinks?.length) {
+			await this.container.client.prisma.member.update({
+				where: { id: message.author?.id },
+				data: {
+					linksSent: {
+						increment: parsedLinks.length
 					}
 				}
 			});
