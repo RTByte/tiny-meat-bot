@@ -141,9 +141,10 @@ export class UserCommand extends Command {
 
 		for (const entry of channelDb) {
 			const channel = interaction.guild?.channels.cache.get(entry.id);
+
 			const row = [
 				entry.id,
-				channel?.name,
+				channel ? channel?.name : 'Channel unavailable or it was deleted but the database entry still exists',
 				entry.messages,
 				entry.messagesDeleted,
 				entry.messagesUpdated,
@@ -192,9 +193,10 @@ export class UserCommand extends Command {
 
 		for (const entry of memberDb) {
 			const member = this.container.client.users.cache.get(entry.id);
+			
 			const row = [
 				entry.id,
-				member?.username,
+				member ? member?.username : 'Member unavailable or left server',
 				entry.messages,
 				entry.messagesDeleted,
 				entry.messagesUpdated,
