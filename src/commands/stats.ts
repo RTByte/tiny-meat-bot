@@ -144,7 +144,7 @@ export class UserCommand extends Subcommand {
 			` • ${inlineCodeBlock(String(memberDb.messagesUpdated))} messages updated`, ` • ${inlineCodeBlock(String(memberDb.emojisInMessages))} emojis sent`,
 			` • ${inlineCodeBlock(String(memberDb?.reactionsAdded))} reactions added`, ` • ${inlineCodeBlock(String(memberDb?.stickersInMessages))} stickers sent`,
 			` • Subscribed to ${inlineCodeBlock(String(memberDb?.scheduledEventsSubscribed))} events`, ` • Unsubscribed from ${inlineCodeBlock(String(memberDb?.scheduledEventsUnsubscribed))} events`,
-      		` • ${inlineCodeBlock(String(memberDb?.timeSpentInVoiceChat))} seconds spent in voice chat`,
+			` • ${inlineCodeBlock(String(memberDb?.timeSpentInVoiceChat))} seconds spent in voice chat`,
 
 		];
 
