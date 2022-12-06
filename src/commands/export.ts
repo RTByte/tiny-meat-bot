@@ -195,11 +195,11 @@ export class UserCommand extends Command {
 		];
 
 		for (const entry of memberDb) {
-			const member = this.container.client.users.cache.get(entry.id);
+			const member = await this.container.client.users.fetch(entry.id);
 			
 			const row = [
 				entry.id,
-				member ? member?.username : 'Member unavailable or left server',
+				member ? member.username : 'Member unavailable or left server',
 				entry.messages,
 				entry.messagesDeleted,
 				entry.messagesUpdated,
