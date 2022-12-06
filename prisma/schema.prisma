@@ -37,6 +37,7 @@ model Guild {
 	messages Int @default(0)
 	messagesDeleted Int @default(0)
 	messagesUpdated Int @default(0)
+	nicknameChanges Int @default(0)
 	reactionsAdded Int @default(0)
 	reactionsRemoved Int @default(0)
 	roleMentions Int @default(0)
@@ -92,6 +93,7 @@ model Member {
 	scheduledEventsSubscribed Int @default(0)
 	scheduledEventsUnsubscribed Int @default(0)
 	timeSpentInVoiceChat Int @default(0)
+	nicknameChanges Int @default(0)
 }
 
 model Emoji {
