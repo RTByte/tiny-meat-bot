@@ -12,7 +12,10 @@ export class UserCommand extends Command {
 
 	public override registerApplicationCommands(registry: ChatInputCommand.Registry) {
 		registry.registerChatInputCommand((builder) =>
-			builder.setName('export').setDescription('Get a full export of the Tiny Meat Bot database')
+			builder
+				.setName('export')
+				.setDescription('Get a full export of the Tiny Meat Bot database')
+				.setDefaultMemberPermissions('0')
 		);
 	}
 
