@@ -199,7 +199,7 @@ export class UserCommand extends Command {
 			
 			const row = [
 				entry.id,
-				member ? member.username : 'Member unavailable or left server',
+				member.username || 'Member unavailable or left server',
 				entry.messages,
 				entry.messagesDeleted,
 				entry.messagesUpdated,
