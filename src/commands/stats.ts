@@ -3,7 +3,7 @@ import { FormattedCustomEmoji } from '@sapphire/discord-utilities';
 import { ChatInputCommand } from '@sapphire/framework';
 import { Subcommand } from '@sapphire/plugin-subcommands';
 import { inlineCodeBlock } from '@sapphire/utilities';
-import { ChannelType } from 'discord-api-types/v9';
+import { ChannelType } from 'discord.js';
 import { parse as parseEmoji } from 'twemoji-parser';
 
 export class UserCommand extends Subcommand {
@@ -43,7 +43,7 @@ export class UserCommand extends Subcommand {
 						.addChannelOption(option =>
 							option
 								.setName('channel')
-								.addChannelTypes(ChannelType.GuildNews, ChannelType.GuildNewsThread, ChannelType.GuildPrivateThread, ChannelType.GuildPublicThread, ChannelType.GuildText)
+								.addChannelTypes(ChannelType.GuildAnnouncement, ChannelType.GuildForum, ChannelType.GuildText, ChannelType.PrivateThread, ChannelType.PublicThread)
 								.setDescription('channel to fetch data for')
 								.setRequired(true)
 						)
@@ -115,7 +115,7 @@ export class UserCommand extends Subcommand {
 		);
 	}
 
-	public async chatInputChannel(interaction: Subcommand.ChatInputInteraction) {
+	public async chatInputChannel(interaction: Subcommand.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching channel data...`, ephemeral: false, fetchReply: true });
 
 		const channel = interaction.options.getChannel('channel');
@@ -131,7 +131,7 @@ export class UserCommand extends Subcommand {
 		return interaction.editReply(`✅ Channel data fetched!\n\n${channel}:\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`);
 	}
 
-	public async chatInputMember(interaction: Subcommand.ChatInputInteraction) {
+	public async chatInputMember(interaction: Subcommand.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching member data...`, ephemeral: false, fetchReply: true });
 
 		const member = interaction.options.getUser('member');
@@ -151,7 +151,7 @@ export class UserCommand extends Subcommand {
 		return interaction.editReply(`✅ Member data fetched!\n\n${member}:\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`);
 	}
 
-	public async chatInputEmoji(interaction: Subcommand.ChatInputInteraction) {
+	public async chatInputEmoji(interaction: Subcommand.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching emoji data...`, ephemeral: false, fetchReply: true });
 
 		const emojiInput = interaction.options.getString('emoji');
@@ -173,7 +173,7 @@ export class UserCommand extends Subcommand {
 		return interaction.editReply(`✅ Emoji data fetched!\n\n${emojiInput}:\n${data.join('\n')}\n\n**Last reset:** ${await this.getLastResetDate()}`);
 	}
 
-	public async chatInputTopChannels(interaction: Subcommand.ChatInputInteraction) {
+	public async chatInputTopChannels(interaction: Subcommand.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching channel data...`, ephemeral: false, fetchReply: true });
 
 		const amount = interaction.options.getNumber('amount');
@@ -192,7 +192,7 @@ export class UserCommand extends Subcommand {
 		return interaction.editReply(msg);
 	}
 
-	public async chatInputTopMembers(interaction: Subcommand.ChatInputInteraction) {
+	public async chatInputTopMembers(interaction: Subcommand.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching member data...`, ephemeral: false, fetchReply: true });
 
 		const amount = interaction.options.getNumber('amount');
@@ -211,7 +211,7 @@ export class UserCommand extends Subcommand {
 		return interaction.editReply(msg);
 	}
 
-	public async chatInputTopEmojis(interaction: Subcommand.ChatInputInteraction) {
+	public async chatInputTopEmojis(interaction: Subcommand.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching emoji data...`, ephemeral: false, fetchReply: true });
 
 		const amount = interaction.options.getNumber('amount');

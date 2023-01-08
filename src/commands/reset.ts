@@ -17,7 +17,7 @@ export class UserCommand extends Command {
     );
   }
 
-  public async chatInputRun(interaction: Command.ChatInputInteraction) {
+  public async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     await interaction.reply({ content: `Resetting database...`, ephemeral: false, fetchReply: true });
 
     const deleteGuild = await this.container.client.prisma.guild.deleteMany({});

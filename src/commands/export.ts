@@ -1,5 +1,5 @@
 import { ChatInputCommand, Command } from '@sapphire/framework';
-import { MessageAttachment } from 'discord.js';
+import { AttachmentBuilder } from 'discord.js';
 
 export class UserCommand extends Command {
 	public constructor(context: Command.Context, options: Command.Options) {
@@ -19,7 +19,7 @@ export class UserCommand extends Command {
 		);
 	}
 
-	public async chatInputRun(interaction: Command.ChatInputInteraction) {
+	public async chatInputRun(interaction: Command.ChatInputCommandInteraction) {
     	await interaction.reply({ content: `Fetching all data...`, ephemeral: false, fetchReply: true });
 
 		const guild = await this.createGuildCsv();
@@ -119,10 +119,10 @@ export class UserCommand extends Command {
 			csv += `${row.join(',')  }\n`;
 		}
 
-		return new MessageAttachment(Buffer.from(csv), 'guild.csv');
+		return new AttachmentBuilder(Buffer.from(csv), { name: 'guild.csv' });
 	}
 
-	private async createChannelCsv(interaction: Command.ChatInputInteraction) {
+	private async createChannelCsv(interaction: Command.ChatInputCommandInteraction) {
 		const channelDb = await this.container.client.prisma.channel.findMany({});
 
 		const csvData: (string | number | undefined)[][] = [
@@ -167,7 +167,7 @@ export class UserCommand extends Command {
 			csv += `${row.join(',')  }\n`;
 		}
 
-		return new MessageAttachment(Buffer.from(csv), 'channels.csv');
+		return new AttachmentBuilder(Buffer.from(csv), { name: 'channels.csv' });
 	}
 
 	private async createMemberCsv() {
@@ -224,7 +224,7 @@ export class UserCommand extends Command {
 			csv += `${row.join(',')  }\n`;
 		}
 
-		return new MessageAttachment(Buffer.from(csv), 'members.csv');
+		return new AttachmentBuilder(Buffer.from(csv), { name: 'members.csv' });
 	}
 
 	private async createEmojiCsv() {
@@ -256,7 +256,7 @@ export class UserCommand extends Command {
 			csv += `${row.join(',')  }\n`;
 		}
 
-		return new MessageAttachment(Buffer.from(csv), 'emojis.csv');
+		return new AttachmentBuilder(Buffer.from(csv), { name: 'emojis.csv' });
 	}
 
 	private async createStickerCsv() {
@@ -286,6 +286,6 @@ export class UserCommand extends Command {
 			csv += `${row.join(',')  }\n`;
 		}
 
-		return new MessageAttachment(Buffer.from(csv), 'stickers.csv');
+		return new AttachmentBuilder(Buffer.from(csv), { name: 'stickers.csv' });
 	}
 }
