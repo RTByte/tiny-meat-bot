@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { Sticker } from "discord.js";
+import type { Sticker } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.GuildStickerDelete })
 export class UserListener extends Listener {

@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { Invite } from "discord.js";
+import type { Invite } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.InviteCreate })
 export class UserListener extends Listener {

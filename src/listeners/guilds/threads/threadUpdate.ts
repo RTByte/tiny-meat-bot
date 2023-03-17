@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { ThreadChannel } from "discord.js";
+import type { ThreadChannel } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.ThreadUpdate })
 export class UserListener extends Listener {

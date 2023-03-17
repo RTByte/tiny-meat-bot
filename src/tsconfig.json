@@ -5,7 +5,6 @@
 		"rootDir": ".",
 		"baseUrl": ".",
 		"tsBuildInfoFile": "../dist/.tsbuildinfo",
-		"importsNotUsedAsValues": "preserve",
 		"experimentalDecorators": true,
 		"moduleResolution": "node",
 		"paths": {

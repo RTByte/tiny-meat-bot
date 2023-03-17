@@ -3,7 +3,7 @@ import { ApplyOptions } from "@sapphire/decorators";
 import { FormattedCustomEmoji } from "@sapphire/discord-utilities";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { Message } from "discord.js";
+import type { Message } from "discord.js";
 import { parse as parseEmoji } from 'twemoji-parser';
 
 @ApplyOptions<ListenerOptions>({ event: Events.MessageCreate })

@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { Role } from "discord.js";
+import type { Role } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.GuildRoleCreate })
 export class UserListener extends Listener {

@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { GuildTextBasedChannel } from "discord.js";
+import type { GuildTextBasedChannel } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.ChannelCreate })
 export class UserListener extends Listener {

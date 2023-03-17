@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { MessageReaction } from "discord.js";
+import type { MessageReaction } from "discord.js";
 import { parse as parseEmoji } from 'twemoji-parser';
 
 @ApplyOptions<ListenerOptions>({ event: Events.MessageReactionAdd })

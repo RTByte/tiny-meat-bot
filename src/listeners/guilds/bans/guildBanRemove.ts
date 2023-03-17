@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { GuildBan } from "discord.js";
+import type { GuildBan } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.GuildBanRemove })
 export class UserListener extends Listener {

@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { MessageReaction } from "discord.js";
+import type { MessageReaction } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.MessageReactionRemove })
 export class UserListener extends Listener {

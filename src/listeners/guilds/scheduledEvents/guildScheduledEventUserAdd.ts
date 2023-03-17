@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { GuildScheduledEvent, User } from "discord.js";
+import type { GuildScheduledEvent, User } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: 'guildScheduledEventUserAdd' })
 export class UserListener extends Listener {

@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { VoiceState } from "discord.js";
+import type { VoiceState } from "discord.js";
 
 const activeUsers = new Map<string, Date>();
 

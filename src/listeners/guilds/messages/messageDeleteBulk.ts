@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { Collection, GuildTextBasedChannel, Message, Snowflake } from "discord.js";
+import type { Collection, GuildTextBasedChannel, Message, Snowflake } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.MessageBulkDelete })
 export class UserListener extends Listener {

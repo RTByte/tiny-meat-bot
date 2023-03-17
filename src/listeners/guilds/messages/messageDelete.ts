@@ -1,7 +1,7 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
 import { bold } from "colorette";
-import { Message } from "discord.js";
+import type { Message } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.MessageDelete })
 export class UserListener extends Listener {

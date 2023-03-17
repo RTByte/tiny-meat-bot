@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { StageInstance } from "discord.js";
+import type { StageInstance } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.StageInstanceDelete })
 export class UserListener extends Listener {

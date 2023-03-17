@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Listener, ListenerOptions } from "@sapphire/framework";
-import { GuildScheduledEvent } from "discord.js";
+import type { GuildScheduledEvent } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: 'guildScheduledEventCreate' })
 export class UserListener extends Listener {

@@ -1,5 +1,5 @@
 import { LogLevel } from '@sapphire/framework';
-import { ClientOptions } from 'discord.js';
+import type { ClientOptions } from 'discord.js';
 
 export const DEV = process.env.NODE_ENV !== 'production';
 

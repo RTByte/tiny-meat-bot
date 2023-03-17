@@ -1,6 +1,6 @@
 import { ApplyOptions } from "@sapphire/decorators";
 import { Events, Listener, ListenerOptions } from "@sapphire/framework";
-import { GuildEmoji } from "discord.js";
+import type { GuildEmoji } from "discord.js";
 
 @ApplyOptions<ListenerOptions>({ event: Events.GuildEmojiCreate })
 export class UserListener extends Listener {
