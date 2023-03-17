@@ -5,6 +5,7 @@
 		"rootDir": ".",
 		"baseUrl": ".",
 		"tsBuildInfoFile": "../dist/.tsbuildinfo",
+		"ignoreDeprecations": "5.0",
 		"experimentalDecorators": true,
 		"moduleResolution": "node",
 		"paths": {
