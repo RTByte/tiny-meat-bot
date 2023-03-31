@@ -16,7 +16,7 @@
     "#utils/*": "./dist/lib/util/*.js"
   },
   "dependencies": {
-    "@prisma/client": "^4.11.0",
+    "@prisma/client": "^4.12.0",
     "@sapphire/decorators": "^6.0.0",
     "@sapphire/discord-utilities": "^3.0.1",
     "@sapphire/framework": "^4.2.2",
