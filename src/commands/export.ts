@@ -54,6 +54,7 @@ export class UserCommand extends Command {
 				'messages',
 				'messagesDeleted',
 				'messagesUpdated',
+				'nicknameChanges',
 				'reactionsAdded',
 				'reactionsRemoved',
 				'roleMentions',
@@ -92,6 +93,7 @@ export class UserCommand extends Command {
 				guildDb?.messages,
 				guildDb?.messagesDeleted,
 				guildDb?.messagesUpdated,
+				guildDb?.nicknameChanges,
 				guildDb?.reactionsAdded,
 				guildDb?.reactionsRemoved,
 				guildDb?.roleMentions,
@@ -189,8 +191,10 @@ export class UserCommand extends Command {
 				'roleMentions',
 				'userMentions',
 				'linksSent',
+				'nicknameChanges',
 				'scheduledEventsSubscribed',
-				'scheduledEventsUnsubscribed'
+				'scheduledEventsUnsubscribed',
+				'timeSpentInVoiceChat'
 			]
 		];
 
@@ -212,8 +216,10 @@ export class UserCommand extends Command {
 				entry.roleMentions,
 				entry.userMentions,
 				entry.linksSent,
+				entry.nicknameChanges,
 				entry.scheduledEventsSubscribed,
-				entry.scheduledEventsUnsubscribed
+				entry.scheduledEventsUnsubscribed,
+				entry.timeSpentInVoiceChat
 			];
 
 			csvData.push(row);
